@@ -122,7 +122,8 @@ class Quotex(object):
 
     async def get_candle_v2(self, asset: str, period: int) -> typing.List[typing.Union[typing.Dict, None]]:
         self.api.candle_v2_data[asset] = None
-        self.stop_candles_stream(asset)
+        #self.stop_candles_stream(asset)        
+        self.api.current_asset = asset
         self.api.subscribe_realtime_candle(asset, period)
         while self.api.candle_v2_data[asset] is None:
             await asyncio.sleep(1)
